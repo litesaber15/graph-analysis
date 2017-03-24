@@ -1,6 +1,6 @@
 # Graph Analysis using SQL and GraphX
 
-#### Due on 7th April 11:59pm.
+#### Due on 7th April 11:59pm EST.
 
 In this assignment, you will import a graph (stored as text files) into SQL and GraphX and answer some questions related based on it. 
 
@@ -152,4 +152,9 @@ v.lookup(ansNode._1)
 ```
 
 #### Submitting
-On completion, submit a `.zip` containing `uni1234.py` and `uni1234.txt` on CourseWorks. Due on 7th April 11:59pm.
+On completion, submit a `.zip` containing `uni1234.py` and `uni1234.txt` on CourseWorks, both renamed to your UNI. Due on 7th April 11:59pm EST. Example of a submission:
+```
+kuu2101.zip
+|--kuu2101.py
+|--kuu2101.txt
+```
