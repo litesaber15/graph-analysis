@@ -5,10 +5,10 @@ import MySQLdb
 # make sure your database name is amazon
 # and your tables are called links and metadata
 
-# write your UNI below
+# write your UNI
 uni = "uni1234"
 
-# after you're done, explicitly write down the answers in the following variables
+# after you're done, write down the answers below
 ans1 = "Name of the Product"
 ans2 = "Name of the Product"
 ans3 = 5.1234
@@ -19,7 +19,6 @@ ans6 = 15
 #ans6 comes from the Spark part
 
 # SQL code begins
-
 # connect to MySQL server
 db = MySQLdb.connect(host="localhost",    # your host, usually localhost
                      user="root",         # your username
