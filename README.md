@@ -1,11 +1,11 @@
-### Graph Analysis using SQL and GraphX
+# Graph Analysis using SQL and GraphX
 
 In this assignment, you will import a graph (stored as text files) into SQL and GraphX and answer some questions related based on it. 
 
-#### A. Get the data
+### A. Get the data
 Clone this repo:
 ```
-git clone 
+git clone https://github.com/kartikeya1994/graph-analysis.git
 ```
 `data.zip` contains two files: amazon-data.txt and amazon-meta-clean.txt. The graph is a representation of Amazon website’s “Customers Who Bought This Item Also Bought” feature. If purchase of product i  frequently leads to purchase of product j, then the graph contains a directed edge from i to j. The data was collected in 2003 by crawling the Amazon website, and contains product metadata and review information about 548,552 different products (Books, music CDs, DVDs and VHS video tapes). More info is available here: 
 1.	`amazon-data.txt`: each line has two vertex ids `i` and `j` representing an edge  `i -> j`.  [More info](https://snap.stanford.edu/data/amazon0302.html).
@@ -18,7 +18,7 @@ To extract the files through console:
 unzip data.zip
 ```
 
-#### B. Install MySQL and load data into tables
+### B. Install MySQL and load data into tables
 Run the following to install `mysql-server`. Press `y` or `yes` on all the prompts. 
 ```
 sudo yum install mysql-server
@@ -39,7 +39,6 @@ Start the mysql shell:
 ```
 /usr/bin/mysql -u root
 ```
-
 Create a new database:
 ```
 CREATE DATABASE amazon;
@@ -48,7 +47,6 @@ Select the database you just created:
 ```
 USE amazon;
 ```
-
 Create a table to store the edges of the graph:
 ```
 CREATE TABLE links(
@@ -56,16 +54,14 @@ from_item INT,
 to_item INT
 );
 ```
-
 Load data onto the table:
 ```
 LOAD DATA LOCAL INFILE ‘/home/training/graph-analysis/amazon-data.txt’ INTO TABLE links;
 ```
-
 Similarly, create another table for the vertex metadata and load `amazon-meta-clean.txt` into it. 
 
 
-#### C. Answer questions using SQL
+### C. Answer questions using SQL
 Write one SQL query each to find the following. For each part, take a screenshot that clearly shows the query and answer produced by it. Name the screenshot as follows: `sql1.png` for part 1.  
 1.	The name of the most co-purchased product (if `i -> j` is the edge, then `j` is the co-purchased product here).
 2.	The name of the most co-purchased DVD. 
@@ -75,7 +71,7 @@ Write one SQL query each to find the following. For each part, take a screenshot
 
 Write the answers of your query in `uni1234.txt`. This file will be checked by a script, so ensure that you do not modify its formatting. Also, replace `uni1234` by your UNI. 
 
-#### D. Get Spark running
+### D. Get Spark running
 GraphX is a part of Spark. You will need to download and setup another VM for this. If you have a pre-existing `Spark` installation or wish to do this another way, you're free to do so. 
 
 Install [Vagrant](https://www.vagrantup.com/downloads.html). You should already have [Virtualbox](https://www.virtualbox.org/wiki/Downloads) installed from the Hadoop assignment.
@@ -100,7 +96,7 @@ You should notice a folder called `vagrant`. This is synced with the folder `vag
 
 If you need to shut the VM, type `exit` on the console to close the SSH session and run `vagrant halt` on the host machine (in the same directory as your `Vagantfile`).
 
-#### E. Using Spark's GraphX
+### E. Using Spark's GraphX
 Start `Spark` in the same directory as your unzipped data files:
 ```
 vagrant@sparkvm:~/graph-analysis$  spark-shell
@@ -122,18 +118,14 @@ Create an RDD for the vertices:
 ```
 val v = sc.textFile("amazon-meta-clean.txt").map(x => (x.split("\t")(0).toLong,(x.split("\t")(1),x.split("\t")(2))) )
 ```
-
 Create an RDD for the edges:
 ```
 val e = sc.textFile("amazon-data.txt").map(x => Edge(x.split("\t")(0).toLong,x.split("\t")(1).toLong,0L))
-
 ```
-
 Create the graph:
 ```
 val g = Graph(v,e)
 ```
-
 The graph object has several useful data members, the `in-degree` for each node is relevant for this part. Get the max `in-degree` as follows:
 ```
 val ansNode = g.inDegrees.reduce((a,b)=> if (a._2 > b._2) a else b)
@@ -144,5 +136,5 @@ Looking-up the title of the node with the max in-degree should be your answer:
 v.lookup(ansNode._1)
 ```
 
-#### Submitting
+### F. Submitting
 On completion, you should have one `.txt` file and nine `.png` files. Put these files in a new folder with the same name as your UNI. Submit a `.zip` of this folder. 
