@@ -1,0 +1,6 @@
+ans1 = Name of the Product
+ans2 = Name of the Product
+ans3 = 5.1234
+ans4 = 20 
+ans5 = 100
+ans6 = 15
