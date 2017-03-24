@@ -1,5 +1,7 @@
 ### Graph Analysis using SQL and GraphX
 
+#### Due on 7th April 11:59pm.
+
 In this assignment, you will import a graph (stored as text files) into SQL and GraphX and answer some questions related based on it. 
 
 #### A. Get the data
@@ -40,10 +42,11 @@ Start the mysql shell:
 /usr/bin/mysql -u root
 ```
 
-Create a new database:
+Create a new database callled `amazon`:
 ```
 CREATE DATABASE amazon;
 ```
+Since the assignment may be autochecked, make sure your database and tables have the same name as given here. 
 Select the database you just created:
 ```
 USE amazon;
@@ -62,18 +65,30 @@ Load data onto the table:
 LOAD DATA LOCAL INFILE ‘/home/training/graph-analysis/amazon-data.txt’ INTO TABLE links;
 ```
 
-Similarly, create another table for the vertex metadata and load `amazon-meta-clean.txt` into it. 
+Similarly, create another table named `metadata` for the vertex metadata and load `amazon-meta-clean.txt` into it. 
+```
+CREATE TABLE metadata(
+id INT,
+title VARCHAR(200),
+type VARCHAR(200),
+salesrank INT,
+PRIMARY KEY (id)
+);
+```
 
+Install the MySQL Python driver:
+```
+sudo yum -y install MySQL-python
+```
 
 #### C. Answer questions using SQL
-Write one SQL query each to find the following. For each part, take a screenshot that clearly shows the query and answer produced by it. Name the screenshot as follows: `sql1.png` for part 1.  
+Write queries to answer the following questions. Take a look at `uni1234.py` that has been provided to you, it has sample Python code for connecting to SQL, and space to write your answers. Make sure you rename the file with your UNI. 
+
 1.	The name of the most co-purchased product (if `i -> j` is the edge, then `j` is the co-purchased product here).
 2.	The name of the most co-purchased DVD. 
 3.	The average number of products that a product is co-purchased with. This is essentially the average in-degree of the given graph. 
 4.	Count of all triplets of products containing the book `The Maine Coon Cat (Learning About Cats)`  that could form a ‘combo’ (say, for the purpose of a discount), such that the products in the triplet are co-purchased.  More specifically, if `a`, `b`, `c` form a triplet, then `a -> b`, `b->c`, `c->a` is true, and one of `a`, `b`, `c` needs to be the cat book specified above. 
 5.	Find the length of the shortest path between the `Video` titled `Star Wars Animated Classics - Droids` and the `Book` titled `The Maine Coon Cat (Learning About Cats)`.
-
-Write the answers of your query in `uni1234.txt`. This file will be checked by a script, so ensure that you do not modify its formatting. Also, replace `uni1234` by your UNI. 
 
 #### D. Get Spark running
 GraphX is a part of Spark. You will need to download and setup another VM for this. If you have a pre-existing `Spark` installation or wish to do this another way, you're free to do so. 
@@ -92,11 +107,11 @@ If you're on Windows, this command will only print the host, port and location o
 1. Download and install [PuTTYgen](https://winscp.net/eng/docs/ui_puttygen#obtaining_and_starting_puttygen). Load your `private_key` in PuTTYgen and generate a PuTTY compatible key (`.ppk` file).
 2. Download and install [PuTTY](http://www.putty.org/). In `Connection -> SSH -> Auth`, specify the path to your private key. Specify the host and port in `Session` and hit `Open`.
 
-List the home directory: 
+List directories in the repo folder: 
 ```
 vagrant@sparkvm/graph-analysis:~$  ls
 ```
-You should notice a folder called `vagrant`. This is synced with the folder `vagrant` in the same directory as the `Vagrantfile` on your host machine. Put your data in this folder to be able to access it on the VM. 
+You should notice a folder called `vagrant` (create one if not present). This is synced with the folder `vagrant` in the same directory as the `Vagrantfile` on your host machine. Put your data in this folder to be able to access it on the VM. 
 
 If you need to shut the VM, type `exit` on the console to close the SSH session and run `vagrant halt` on the host machine (in the same directory as your `Vagantfile`).
 
@@ -109,12 +124,12 @@ You should get Spark's Scala REPL that looks like this:
 ```
 scala>
 ```
-Write `Spark` commands to answer the following. Save a screenshot for each part that shows the printed answer; name the screenshot as follows: `spark1.png` for the part 1.
+Write `Spark` commands to answer the following. Paste the Spark commands you wrote into graphx.txt
 
 1.	The name of the most co-purchased product (if `i -> j` is the edge, then `j` is the co-purchased product here).
 2.	The average number of products that a product is co-purchased with. This is essentially the average in-degree of the given graph. 
 3.	Find the length of the shortest path between the `Video` titled `Star Wars Animated Classics - Droids` and the `Book` titled `The Maine Coon Cat (Learning About Cats)`.
-4. Count of all unique triangles in graph. (Permutations of order of vertices are considered to be the same triangle). Record this as `ans6` in `uni1234.txt`. 
+4. Count of all unique triangles in graph. (Permutations of order of vertices are considered to be the same triangle). Record this as `ans6` in `uni1234.py`. 
 
 The solution to part 1 is provided below as an example. 
 
@@ -145,4 +160,4 @@ v.lookup(ansNode._1)
 ```
 
 #### Submitting
-On completion, you should have one `.txt` file and nine `.png` files. Put these files in a new folder with the same name as your UNI. Submit a `.zip` of this folder. 
+On completion, submit a `.zip` containing `uni1234.py` and `uni1234.txt` on CourseWorks. Due on 7th April 11:59pm.
