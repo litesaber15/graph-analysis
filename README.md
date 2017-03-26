@@ -2,7 +2,7 @@
 
 #### Due on 7th April 11:59pm EST.
 
-In this assignment, you will import a graph (stored as text files) into SQL and GraphX and answer some questions related based on it. 
+In this assignment, you will import a graph (stored as text files) into SQL and GraphX and answer some questions based on it. 
 
 ### A. Get the data
 Clone this repo:
