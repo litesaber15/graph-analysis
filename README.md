@@ -5,77 +5,80 @@
 In this assignment, you will import a graph (stored as text files) into SQL and GraphX and answer some questions based on it. 
 
 ### A. Get the data
-Clone this repo:
+Run the VM provided in the Hadoop assignment and clone this repo:
 ```
-git clone https://github.com/kartikeya1994/graph-analysis.git
+$ git clone https://github.com/kartikeya1994/graph-analysis.git
 ```
 `data.zip` contains two files: amazon-data.txt and amazon-meta-clean.txt. The graph is a representation of Amazon website’s “Customers Who Bought This Item Also Bought” feature. If purchase of product i  frequently leads to purchase of product j, then the graph contains a directed edge from i to j. The data was collected in 2003 by crawling the Amazon website, and contains product metadata and review information about 548,552 different products (Books, music CDs, DVDs and VHS video tapes). More info is available here: 
 1.	`amazon-data.txt`: each line has two vertex ids `i` and `j` representing an edge  `i -> j`.  [More info](https://snap.stanford.edu/data/amazon0302.html).
 2.	`amazon-meta-clean.txt`: each line contains the following info: `vertex_id \t title \t type \t salesrank`. [More info](https://snap.stanford.edu/data/amazon-meta.html).
 
-Copy the files to the Cloudera VM provided in the first assignment (Hadoop setup). The easiest way to do this would be to clone the repo directly into the VM.  
+Switch to repo directory:
+```
+$ cd graph-analysis
+```
 
 To extract the files through console:
 ```
-unzip data.zip
+[graph-analysis]$ unzip data.zip
 ```
 
 ### B. Install MySQL and load data into tables
 Run the following to install `mysql-server`. Press `y` or `yes` on all the prompts. 
 ```
-sudo yum install mysql-server
+$ sudo yum install mysql-server
 ```
 Start the sql server:
 ```
-sudo /sbin/service mysqld start
+$ sudo /sbin/service mysqld start
 ```
 And ensure that there’s a green OK indicating that `mysqld` has started.
 
 Configure `mysqld`:
 ```
-sudo /usr/bin/mysql_secure_installation
+$ sudo /usr/bin/mysql_secure_installation
 ```
 Default password is blank. Hit `no` for all prompts except `reload privilege tables`, hit `yes` for that. 
 
 Start the mysql shell:
 ```
-/usr/bin/mysql -u root
+$ /usr/bin/mysql -u root
 ```
 Create a new database callled `amazon`:
 ```
-CREATE DATABASE amazon;
+mysql> CREATE DATABASE amazon;
 ```
 Since the assignment may be autochecked, make sure your database and tables have the same name as given here. 
 Select the database you just created:
 ```
-USE amazon;
+mysql> USE amazon;
 ```
 Create a table to store the edges of the graph:
 ```
-CREATE TABLE links(
-from_item INT,
-to_item INT
-);
+mysql> CREATE TABLE links(
+     > from_item INT,
+     > to_item INT
+     > );
 ```
 Load data onto the table:
 ```
-LOAD DATA LOCAL INFILE ‘/home/training/graph-analysis/amazon-data.txt’ INTO TABLE links;
+mysql> LOAD DATA LOCAL INFILE ‘/home/training/graph-analysis/amazon-data.txt’ INTO TABLE links;
 ```
 
 Similarly, create another table named `metadata` for the vertex metadata and load `amazon-meta-clean.txt` into it. 
 ```
-CREATE TABLE metadata(
-id INT,
-title VARCHAR(200),
-type VARCHAR(200),
-salesrank INT,
-PRIMARY KEY (id)
-);
+mysql> CREATE TABLE metadata(
+     > id INT,
+     > title VARCHAR(200),
+     > type VARCHAR(200),
+     > salesrank INT,
+     > PRIMARY KEY (id)
+     > );
 ```
 
 Install the MySQL Python driver:
 ```
-sudo yum -y install MySQL-python
+$ sudo yum -y install MySQL-python
 ```
 
 #### C. Answer questions using SQL
