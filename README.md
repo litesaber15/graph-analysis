@@ -92,7 +92,7 @@ Write queries to answer the following questions. Take a look at `uni1234.py` tha
 ### D. Get Spark running
 GraphX is a part of Spark. You will need to download and setup another VM for this. If you have a pre-existing `Spark` installation or wish to do this another way, you're free to do so. 
 
-Install [Vagrant](https://www.vagrantup.com/downloads.html). You should already have [Virtualbox](https://www.virtualbox.org/wiki/Downloads) installed from the Hadoop assignment.
+Install [Vagrant](https://www.vagrantup.com/downloads.html) on your host machine. You should already have [Virtualbox](https://www.virtualbox.org/wiki/Downloads) installed from the Hadoop assignment.
 
 Open the console and navigate to the git repo. Notice `Vagrantfile`, this contains the configuration of the VM. Run the following to get the VM running:
 ```
