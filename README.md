@@ -94,7 +94,7 @@ GraphX is a part of Spark. You will need to download and setup another VM for th
 
 Install [Vagrant](https://www.vagrantup.com/downloads.html) on your host machine. You should already have [Virtualbox](https://www.virtualbox.org/wiki/Downloads) installed from the Hadoop assignment.
 
-Open the console and navigate to the git repo. Notice `Vagrantfile`, this contains the configuration of the VM. Run the following to get the VM running:
+For this you'll need to clone the repo again on the host machine. Open the console and navigate to the git repo. Notice `Vagrantfile`, this contains the configuration of the VM. Run the following to get the VM running:
 ```
 vagrant up
 ```
