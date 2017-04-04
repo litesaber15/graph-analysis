@@ -132,6 +132,12 @@ Write `Spark` commands to answer the following. Paste the Spark commands you wro
 
 The solution to part 1 is provided below as an example. 
 
+Import the necessary libraries:
+```
+import org.apache.spark._
+import org.apache.spark.graphx._
+```
+
 Create an RDD for the vertices:
 ```
 val v = sc.textFile("amazon-meta-clean.txt").map(x => (x.split("\t")(0).toLong,(x.split("\t")(1),x.split("\t")(2))) )
