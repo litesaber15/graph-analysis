@@ -87,7 +87,7 @@ Write queries to answer the following questions. Take a look at `uni1234.py` tha
 2.	The name of the most co-purchased DVD. 
 3.	The average number of products that a product is co-purchased with. This is essentially the average in-degree of the given graph. 
 4.	Count of all triplets of products containing the book `The Maine Coon Cat (Learning About Cats)`  that could form a ‘combo’ (say, for the purpose of a discount), such that the products in the triplet are co-purchased.  More specifically, if `a`, `b`, `c` form a triplet, then `a -> b`, `b->c`, `c->a` is true, and one of `a`, `b`, `c` needs to be the cat book specified above. 
-5.	Find the length of the shortest path between the `Video` titled `Star Wars Animated Classics - Droids` and the `Book` titled `The Maine Coon Cat (Learning About Cats)`.
+5.	Find the length of the shortest path between the `Video` titled `Star Wars Animated Classics - Droids` (as source node) and the `Book` titled `The Maine Coon Cat (Learning About Cats)` (as destination node).
 
 ### D. Get Spark running
 GraphX is a part of Spark. You will need to download and setup another VM for this. If you have a pre-existing `Spark` installation or wish to do this another way, you're free to do so. 
